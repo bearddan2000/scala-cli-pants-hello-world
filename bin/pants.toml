@@ -1,0 +1,62 @@
+[DEFAULT]
+pants_supportdir = "%(buildroot)s/.build_support"
+pantsd = true
+
+[GLOBAL]
+pants_version = "1.30.0"
+print_exception_stacktrace = false
+backend_packages.remove = [
+    'pants.backend.python.lint.isort',
+    'pants.backend.codegen.antlr.java',
+    'pants.backend.codegen.antlr.python',
+    'pants.backend.codegen.jaxb',
+    'pants.backend.codegen.ragel.java',
+    'pants.backend.codegen.wire.java',
+]
+
+[source]
+root_patterns = [
+    'src/scala',
+    'test/scala',
+]
+
+[resolver]
+resolver = "coursier"
+
+[ivy]
+ivy_settings = "%(pants_supportdir)s/ivy/ivysettings.xml"
+
+[jvm-distributions]
+paths = """
+{
+  'linux': [
+    '/usr/lib/jvm/java-11-openjdk-amd64',
+  ]
+}
+"""
+
+[jvm-platform]
+default_platform = "java11"
+platforms = """
+{
+  'java11': {'source': '11', 'target': '11', 'args': [] },
+}
+"""
+
+# Check BUILD.tools
+[scala]
+version = 2.12
+suffix_version = 2.12
+scalac_plugins = []
+
+[scalastyle]
+skip = true
+
+[scalafmt]
+skip = true
+
+[scalafix]
+skip = true
+
+[checkstyle]
+skip = true
