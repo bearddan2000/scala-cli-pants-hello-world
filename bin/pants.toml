@@ -1,0 +1,38 @@
+# Copyright 2020 Pants project contributors.
+# Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+[GLOBAL]
+pants_version = "2.17.0"
+backend_packages.add = [
+  "pants.backend.experimental.scala",
+]
+
+[anonymous-telemetry]
+enabled = true
+repo_id = "3B1D361B-E9F1-49A8-B761-03DCC41FD58E"
+
+[source]
+# The Python source root is the repo root. See https://www.pantsbuild.org/docs/source-roots.
+root_patterns = [
+  "/src/main",
+]
+
+# Configure the specific Scala version to use for a resolve. This version must match the version used for the
+# `jvm_artifact` target providing the scala-library runtime jar.
+[scala.version_for_resolve]
+jvm-default = "2.13.12"
+
+[scalac]
+args = [
+  "-deprecation",
+  "-encoding UTF-8",
+]
+
+[scala-infer]
+# Opt in to future change to Scala dependency inference which will become to the default in Pants v2.14+:
+#   We have made several improvements to Pants's Scala dependency inference, where we no longer think
+#   it's necessary to adding dependencies on sibling targets. If you have compilation failures after
+#   disabling this option, please consider opening an issue at
+#   https://github.com/pantsbuild/pants/issues/new so that we can continue to improve Pants's
+#   dependency inference.
+force_add_siblings_as_dependencies = false
